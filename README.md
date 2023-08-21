@@ -41,6 +41,32 @@ To stop the application and shut down the Docker containers, run: `docker-compos
 
 -   To lint the entire application, run: `composer fix`
 
+### Running Tests
+
+To run the test suite for this project, you can use the following command within your Docker container:
+
+`docker-compose exec app php artisan test`
+
+You can also run specific tests by using the --filter option with the above command. This allows you to selectively execute tests based on their names or descriptions. Here are some examples:
+
+#### Running Tests by Class Name:
+
+To run tests from a specific test class, use the class name as the filter:
+
+`docker-compose exec app php artisan test --filter ClassName`
+
+for example :
+`docker-compose exec app php artisan test --filter HealthCheck`
+
+#### Running Tests by Test Method
+
+You can also run tests by specifying the test method's name as the filter:
+
+`docker-compose exec app php artisan test --filter testMethodName`
+
+for example :
+`docker-compose exec app php artisan test --filter test_health_check_success`
+
 ### Contributing
 
 If you would like to contribute to this project, feel free to fork the repository and submit pull requests.
@@ -48,3 +74,7 @@ If you would like to contribute to this project, feel free to fork the repositor
 ### License
 
 This project is licensed under the MIT License.
+
+```
+
+```
