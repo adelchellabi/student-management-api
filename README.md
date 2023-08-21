@@ -32,9 +32,19 @@ To get started with this project, you'll need to have Docker and Docker Compose 
 Open your web browser and navigate to `http://localhost:8080`. You should see the Student Management API home page.
 
 ### Stopping the Application
+
 To stop the application and shut down the Docker containers, run: `docker-compose down`
 
+### Run Laravel Lint:
+
+-   Use the following command to lint your Laravel code: `composer fix path/to/your/code`
+
+-   To lint the entire application, run: `composer fix`
+
 ### Contributing
+
 If you would like to contribute to this project, feel free to fork the repository and submit pull requests.
+
 ### License
+
 This project is licensed under the MIT License.
