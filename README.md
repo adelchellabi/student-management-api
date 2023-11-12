@@ -35,7 +35,28 @@ Open your web browser and navigate to `http://localhost:8080`. You should see th
 
 To stop the application and shut down the Docker containers, run: `docker-compose down`
 
-### Run Laravel Lint:
+### Create new user
+
+To create a new user, use the following Artisan command:
+
+`docker-compose exec app php artisan user:create {username} {email} --password={password}`
+
+Replace {username}, {email}, and {password} with the desired values.
+
+Example:
+
+`docker-compose exec app php artisan user:create john_doe john@example.com --password=secret`
+
+or you can choose to use the interactive prompt. If you run the command without providing arguments, it will prompt you to enter the following details:
+
+-   **Username**: Enter the desired username.
+-   **Email**: Enter the email address.
+-   **Password**: Enter the password.
+
+Example:
+`docker-compose exec app php artisan user:create`
+
+### Run Laravel Lint
 
 -   Use the following command to lint your Laravel code: `composer fix path/to/your/code`
 
@@ -74,7 +95,3 @@ If you would like to contribute to this project, feel free to fork the repositor
 ### License
 
 This project is licensed under the MIT License.
-
-```
-
-```
