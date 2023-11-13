@@ -1,0 +1,310 @@
+openapi: 3.1.0
+x-stoplight:
+  id: kfep3ben33h9u
+info:
+  title: student-management
+  version: '1.0'
+  description: 'Welcome to the Student Management API project. This project provides an API for managing students, teachers and courses.'
+  summary: Student Management API
+servers:
+  - url: 'http://127.0.0.1:8080/api'
+paths:
+  '/users/{userId}':
+    parameters:
+      - schema:
+          type: integer
+        name: userId
+        in: path
+        required: true
+        description: Id of an existing user.
+    get:
+      summary: Get User Info by User ID
+      tags: []
+      responses:
+        '200':
+          description: User Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                Get User Alice Smith:
+                  value:
+                    id: 142
+                    firstName: Alice
+                    lastName: Smith
+                    email: alice.smith@gmail.com
+                    dateOfBirth: '1997-10-31'
+                    emailVerified: true
+                    signUpDate: '2019-08-24'
+        '404':
+          description: User Not Found
+      operationId: get-users-userId
+      description: Retrieve the information of the user with the matching user ID.
+      x-stoplight:
+        id: nh93qbipkma7c
+    patch:
+      summary: Update User Information
+      operationId: patch-users-userId
+      responses:
+        '200':
+          description: User Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                Updated User Rebecca Baker:
+                  value:
+                    id: 13
+                    firstName: Rebecca
+                    lastName: Baker
+                    email: rebecca@gmail.com
+                    dateOfBirth: '1985-10-02'
+                    emailVerified: false
+                    createDate: '2019-08-24'
+        '404':
+          description: User Not Found
+        '409':
+          description: Email Already Taken
+      description: Update the information of an existing user.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+                  description: 'If a new email is given, the user''s email verified property will be set to false.'
+                dateOfBirth:
+                  type: string
+            examples:
+              Update First Name:
+                value:
+                  firstName: Rebecca
+              Update Email:
+                value:
+                  email: rebecca@gmail.com
+              Update Last Name & Date of Birth:
+                value:
+                  lastName: Baker
+                  dateOfBirth: '1985-10-02'
+        description: Patch user properties to update.
+      x-stoplight:
+        id: 77ga3t6m9rls7
+  /user:
+    post:
+      summary: Create New User
+      operationId: post-user
+      responses:
+        '200':
+          description: User Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                New User Bob Fellow:
+                  value:
+                    id: 12
+                    firstName: Bob
+                    lastName: Fellow
+                    email: bob.fellow@gmail.com
+                    dateOfBirth: '1996-08-24'
+                    emailVerified: false
+                    createDate: '2020-11-18'
+        '400':
+          description: Missing Required Information
+        '409':
+          description: Email Already Taken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+                dateOfBirth:
+                  type: string
+                  format: date
+              required:
+                - firstName
+                - lastName
+                - email
+                - dateOfBirth
+            examples:
+              Create User Bob Fellow:
+                value:
+                  firstName: Bob
+                  lastName: Fellow
+                  email: bob.fellow@gmail.com
+                  dateOfBirth: '1996-08-24'
+        description: Post the necessary fields for the API to create a new user.
+      description: Create a new user.
+      x-stoplight:
+        id: rchcg7yf88kj6
+  /health-check:
+    get:
+      summary: HealthCheck
+      tags: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  database:
+                    type: string
+                  redis:
+                    type: string
+                x-examples:
+                  Example 1:
+                    database: Database connection established successfully.
+                    redis: Redis connection established successfully.
+              examples:
+                Example 1:
+                  value:
+                    database: Database connection established successfully.
+                    redis: Redis connection established successfully.
+                Example 2:
+                  value:
+                    database: 'Database connection failed: SQLSTATE[HY000] [2002] php_network_getaddresses: getaddrinfo for db failed: Temporary failure in name resolution'
+                    redis: Redis connection established successfully.
+      operationId: HealthCheck
+      x-stoplight:
+        id: j19c9lzznioxs
+      description: 'The health check endpoint returns a JSON response confirming the successful connections to the database and Redis, ensuring the operational integrity of the system.'
+  /app-info:
+    get:
+      summary: AppInfo
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  remote_ip:
+                    type: string
+                  host_ip:
+                    type: string
+                  hostname:
+                    type: string
+                  versions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                        name:
+                          type: string
+                        version:
+                          type: string
+                x-examples:
+                  Example 1:
+                    remote_ip: 172.19.0.1
+                    host_ip: 172.19.0.3
+                    hostname: '127.0.0.1:8080'
+                    versions:
+                      - type: os
+                        name: Debian GNU/Linux
+                        version: '12'
+                      - type: software
+                        name: php
+                        version: 8.1.22
+                      - type: service
+                        name: mysql
+                        version: 8.0.32
+              examples:
+                Example 1:
+                  value:
+                    remote_ip: 172.19.0.1
+                    host_ip: 172.19.0.3
+                    hostname: '127.0.0.1:8080'
+                    versions:
+                      - type: os
+                        name: Debian GNU/Linux
+                        version: '12'
+                      - type: software
+                        name: php
+                        version: 8.1.22
+                      - type: service
+                        name: mysql
+                        version: 8.0.32
+      operationId: AppInfo
+      x-stoplight:
+        id: brzz3ctusbuul
+      description: 'The app info endpoint provides essential information about the application environment, including remote and host IP addresses, hostname, and version details for the operating system '
+components:
+  schemas:
+    User:
+      title: User
+      type: object
+      description: ''
+      examples:
+        - id: 142
+          firstName: Alice
+          lastName: Smith
+          email: alice.smith@gmail.com
+          dateOfBirth: '1997-10-31'
+          emailVerified: true
+          signUpDate: '2019-08-24'
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the given user.
+          x-stoplight:
+            id: qi8y01yhz7j17
+        firstName:
+          type: string
+          x-stoplight:
+            id: uhuexkyqje2hy
+        lastName:
+          type: string
+          x-stoplight:
+            id: vtt4l3zc1za41
+        email:
+          type: string
+          format: email
+          x-stoplight:
+            id: 0zx9m0ybmia6d
+        dateOfBirth:
+          type: string
+          format: date
+          example: '1997-10-31'
+          x-stoplight:
+            id: ivo8fp75mkues
+        emailVerified:
+          type: boolean
+          description: Set to true if the user's email has been verified.
+          x-stoplight:
+            id: 7iqeqthtiz5ky
+        createDate:
+          type: string
+          format: date
+          description: The date that the user was created.
+          x-stoplight:
+            id: pixkoqmp96zm5
+      required:
+        - id
+        - firstName
+        - lastName
+        - email
+        - emailVerified
+      x-stoplight:
+        id: eksanqynw3edi

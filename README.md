@@ -1,6 +1,6 @@
 # Student Management API
 
-Welcome to the Student Management API project. This project provides an API for managing students, teachers, and administrators.
+Welcome to the Student Management API project. This project provides an API for managing students, teachers and courses.
 
 ## Getting Started
 
@@ -69,9 +69,9 @@ Example:
 
 ### Run Laravel Lint
 
--   Use the following command to lint your Laravel code: `composer fix path/to/your/code`
+-   Use the following command to lint your Laravel code: `docker-compose exec app composer fix path/to/your/code`
 
--   To lint the entire application, run: `composer fix`
+-   To lint the entire application, run: `docker-compose exec app composer fix`
 
 ### Running Tests
 
