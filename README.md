@@ -56,6 +56,17 @@ or you can choose to use the interactive prompt. If you run the command without 
 Example:
 `docker-compose exec app php artisan user:create`
 
+### Delete user
+
+To delete a user, use the following Artisan command:
+`docker-compose exec app php artisan user:delete {email}`
+
+Replace {email} with the desired value.
+
+Example:
+
+`docker-compose exec app php artisan user:delete john@example.com`
+
 ### Run Laravel Lint
 
 -   Use the following command to lint your Laravel code: `composer fix path/to/your/code`
