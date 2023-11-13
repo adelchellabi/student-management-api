@@ -19,9 +19,10 @@ class CreateUserTest extends TestCase
         $userData = $this->getUserData();
         $command = $this->prepareCommand($userData);
 
-        $command->run();
+        $result = $command->run();
 
-        $command->assertExitCode(CreateUser::SUCCESS);
+        $this->assertEquals(CreateUser::SUCCESS, $result);
+
         $this->assertDatabaseHas('users', ['email' => $userData->getEmail()]);
     }
 
