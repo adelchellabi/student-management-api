@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\Students\GetStudentsController;
 use App\Http\Controllers\AppInfoController;
 use App\Http\Controllers\HealthCheckController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +19,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('health-check', [HealthCheckController::class, 'check']);
 Route::get('app-info', [AppInfoController::class, 'index']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::prefix('students')->group(function () {
+        Route::get('/', GetStudentsController::class);
+        // Route::post('/', CreateStudentController::class);
+        // Route::get('/{studentId}', GetStudentController::class);
+        // Route::patch('/{studentId}', UpdateStudentController::class);
+        // Route::delete('/{studentId}', CreateStudentController::class);
+    });
 });
