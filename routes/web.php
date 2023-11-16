@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/api-docs', function () {
+    $filePath = base_path('documentation/reference/api.yaml');
+    return response()->file($filePath);
+});
+
+Route::get('/documentation', function () {
+    return view('doc');
 });

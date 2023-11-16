@@ -1,0 +1,108 @@
+openapi: 3.0.3
+x-stoplight:
+  id: kfep3ben33h9u
+info:
+  title: student-management
+  version: "1.0"
+  description: "Welcome to the Student Management API project. This project provides an API for managing students, teachers and courses."
+
+servers:
+  - url: "http://127.0.0.1:8080/api"
+paths:
+  /health-check:
+    get:
+      summary: HealthCheck
+      tags: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  database:
+                    type: string
+                  redis:
+                    type: string
+                x-examples:
+                  Example 1:
+                    database: Database connection established successfully.
+                    redis: Redis connection established successfully.
+              examples:
+                Example 1:
+                  value:
+                    database: Database connection established successfully.
+                    redis: Redis connection established successfully.
+                Example 2:
+                  value:
+                    database: "Database connection failed: SQLSTATE[HY000] [2002] php_network_getaddresses: getaddrinfo for db failed: Temporary failure in name resolution"
+                    redis: Redis connection established successfully.
+      operationId: HealthCheck
+      x-stoplight:
+        id: j19c9lzznioxs
+      description: "The health check endpoint returns a JSON response confirming the successful connections to the database and Redis, ensuring the operational integrity of the system."
+  /app-info:
+    get:
+      summary: AppInfo
+      tags: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  remote_ip:
+                    type: string
+                  host_ip:
+                    type: string
+                  hostname:
+                    type: string
+                  versions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                        name:
+                          type: string
+                        version:
+                          type: string
+                x-examples:
+                  Example 1:
+                    remote_ip: 172.19.0.1
+                    host_ip: 172.19.0.3
+                    hostname: "127.0.0.1:8080"
+                    versions:
+                      - type: os
+                        name: Debian GNU/Linux
+                        version: "12"
+                      - type: software
+                        name: php
+                        version: 8.1.22
+                      - type: service
+                        name: mysql
+                        version: 8.0.32
+              examples:
+                Example 1:
+                  value:
+                    remote_ip: 172.19.0.1
+                    host_ip: 172.19.0.3
+                    hostname: "127.0.0.1:8080"
+                    versions:
+                      - type: os
+                        name: Debian GNU/Linux
+                        version: "12"
+                      - type: software
+                        name: php
+                        version: 8.1.22
+                      - type: service
+                        name: mysql
+                        version: 8.0.32
+      operationId: AppInfo
+      x-stoplight:
+        id: brzz3ctusbuul
+      description: "The app info endpoint provides essential information about the application environment, including remote and host IP addresses, hostname, and version details for the operating system "
